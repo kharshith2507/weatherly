@@ -3,7 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, MapPin, X, Clock, Loader2, Trash2, Navigation } from "lucide-react";
-import { debounce, getRecentSearches, clearRecentSearches, formatRelativeTime } from "@/lib/utils";
+import { getRecentSearches, clearRecentSearches, formatRelativeTime } from "@/lib/utils";
 import { getTheme } from "@/lib/theme";
 import type { RecentSearch, WeatherTheme } from "@/types/weather";
 
@@ -31,9 +31,6 @@ export default function SearchBar({ onSearch, onLocationSearch, locationLoading,
     inputRef.current?.blur();
     setTimeout(refresh, 800);
   },[onSearch,refresh]);
-
-  // keep debounce ref stable
-  const dbRef = useRef(debounce((_:string)=>{},350));
 
   const onKeyDown = (e:React.KeyboardEvent<HTMLInputElement>)=>{
     if(e.key==="Enter") submit(query);
@@ -81,7 +78,7 @@ export default function SearchBar({ onSearch, onLocationSearch, locationLoading,
           ref={inputRef}
           type="search"
           value={query}
-          onChange={e=>{ setQuery(e.target.value); dbRef.current(e.target.value); }}
+          onChange={e => setQuery(e.target.value)}
           onKeyDown={onKeyDown}
           onFocus={()=>setFocused(true)}
           placeholder="Search for a city…"

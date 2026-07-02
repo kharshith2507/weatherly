@@ -26,13 +26,12 @@ interface DetailCardProps {
   gradient: string;
   delay: number;
   isDark: boolean;
-  glassInner: string;
   text1: string;
   text2: string;
   text3: string;
 }
 
-function DetailCard({ icon, label, value, sub, gradient, delay, isDark, glassInner, text1, text2, text3 }: DetailCardProps) {
+function DetailCard({ icon, label, value, sub, gradient, delay, isDark, text1, text2, text3 }: DetailCardProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   const onMove = (e:React.MouseEvent<HTMLDivElement>)=>{
@@ -134,7 +133,6 @@ export default function WeatherDetails({ weather, theme }: WeatherDetailsProps) 
             gradient={iconGradients[i]}
             delay={i*0.055}
             isDark={tk.isDark}
-            glassInner={tk.glassInner}
             text1={tk.text1}
             text2={tk.text2}
             text3={tk.text3}
