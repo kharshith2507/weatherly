@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import type { WeatherTheme } from "@/types/weather";
+import { GravityStarsBackground } from "@/components/animate-ui/components/backgrounds/gravity-stars";
 
 interface BackgroundProps { theme: WeatherTheme; }
 
@@ -16,30 +17,6 @@ const T = {
   night:        { a:"#1e1b4b", b:"#312e81", c:"#4338ca", stars:true,  rain:false, snow:false, storm:false },
   default:      { a:"#818cf8", b:"#60a5fa", c:"#a78bfa", stars:false, rain:false, snow:false, storm:false },
 };
-
-function StarField() {
-  return (
-    <div className="absolute inset-0" aria-hidden="true">
-      {Array.from({length:70}).map((_,i)=>{
-        const size  = Math.random()*2+0.5;
-        const delay = Math.random()*6;
-        const dur   = Math.random()*3+2;
-        return (
-          <div key={i} className="absolute rounded-full bg-white"
-            style={{
-              width:size, height:size,
-              top:`${Math.random()*100}%`,
-              left:`${Math.random()*100}%`,
-              opacity: Math.random()*0.55+0.15,
-              animation:`pulse ${dur}s ease-in-out ${delay}s infinite alternate`,
-            }}
-          />
-        );
-      })}
-      <style>{`@keyframes pulse{from{opacity:.1}to{opacity:.7}}`}</style>
-    </div>
-  );
-}
 
 function RainLayer({ dense=false }:{dense?:boolean}) {
   const count = dense ? 35 : 22;
@@ -170,7 +147,13 @@ export default function Background({ theme }: BackgroundProps) {
       />
 
       {/* Weather particles */}
-      {cfg.stars && <StarField />}
+      {cfg.stars && (
+        <GravityStarsBackground
+          className="absolute inset-0"
+          starColor={theme === "thunderstorm" ? "196, 181, 253" : "255, 255, 255"}
+          starCount={140}
+        />
+      )}
       {cfg.rain  && <RainLayer dense={cfg.storm} />}
       {cfg.snow  && <SnowLayer />}
       {cfg.storm && <LightningFlash />}
