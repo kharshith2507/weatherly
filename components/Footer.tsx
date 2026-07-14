@@ -17,6 +17,11 @@ export default function Footer({ theme }:{ theme:WeatherTheme }) {
         OpenWeatherMap
       </a>
       {" "}· Weatherly © {new Date().getFullYear()}
+      {" "}·{" "}
+      <a href="https://github.com/kharshith2507" target="_blank" rel="noopener noreferrer"
+         className={`underline-offset-2 hover:underline ${tk.accent}`}>
+        GitHub
+      </a>
     </motion.footer>
   );
 }
