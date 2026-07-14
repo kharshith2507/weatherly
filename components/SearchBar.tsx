@@ -78,7 +78,7 @@ export default function SearchBar({ onSearch, onLocationSearch, locationLoading,
           ref={inputRef}
           type="search"
           value={query}
-          onChange={e => setQuery(e.target.value)}
+          onChange={e=>{ setQuery(e.target.value); dbRef.current(e.target.value); }}
           onKeyDown={onKeyDown}
           onFocus={()=>setFocused(true)}
           placeholder="Search for a city…"
